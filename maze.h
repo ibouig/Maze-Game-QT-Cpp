@@ -1,43 +1,34 @@
 #ifndef MAZE_H
 #define MAZE_H
+
+#include <QMainWindow>
+#include <QObject>
 #include <QWidget>
-#include<iostream>
-#include<stdlib.h>
-#include<stdio.h>
-#include<vector>
-#include<time.h>
-struct Element{
-    int indi;
-    int indj;
-    Element* suivant;
-    };
-typedef struct Element* Pile;
+#include <bits/stdc++.h>
+using namespace std;
+
 
 class Maze
 {
-protected:
-    int wdth,hght;
-    enum direction {visitb,frontr,visitp,west,east,south,north};
-    char** cells;
-
-
     public:
-    Pile P;
-        char **gettab()
-        {return cells ;}
+
+        int height;
+        int width;
+        char** cell;
+        enum direction{up,down,right,left,IN,FRONTR,BACKTRACK};
+        int in=0x10; //16
+        int front=0x20;//32
+        int backt= 0x40; //64
+
+        stack<pair<int,int>> chemin;
         Maze(int,int);
         virtual ~Maze();
-        void open(direction ,int ,int );
+        void set_bit(direction,int i,int j);
         void show();
-        Maze(const Maze& other);
-        Maze& operator=(const Maze& other);
-        void Backtracker(int,int ,int,int );
-        void empiler(Pile& ,int& ,int&);
-        void sommet(Pile& ,int&,int& );
-        void depiler(Pile&);
-        void affich();
-        int valid(char& ,int ,int ,int, int);
-
+        void solve_maze(int i,int j);
+        bool is_safe(int i,int j);
     private:
+
 };
+
 #endif // MAZE_H
